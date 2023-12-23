@@ -9,9 +9,11 @@ def num_of_lines(file_path : str) -> int:
         num_of_lines = len(file.readlines())
     return num_of_lines
 
-# TODO: Add logic
 def num_of_words(file_path : str) -> int:
-    return 0
+    with open(file_path) as file:
+        words = file.read().split()
+    return len(words)
+    
 
 parser = argparse.ArgumentParser(prog='ccwc',
                                  description='Generate various statistics about a file')
@@ -28,5 +30,5 @@ elif args.lines_count != None:
     line_count = num_of_lines(args.lines_count)
     print(str(line_count) + ' ' + args.lines_count)
 elif args.words_count != None:
-    num_of_words = num_of_words(args.words_count)
-    print(str(num_of_words) + ' ' + args.words_count)
+    word_count = num_of_words(args.words_count)
+    print(str(word_count) + ' ' + args.words_count)
