@@ -1,5 +1,6 @@
 import argparse 
 import os
+from functools import reduce
 
 def filesize_bytes(file_path : str) -> int:
     return os.path.getsize(file_path)
@@ -13,22 +14,34 @@ def num_of_words(file_path : str) -> int:
     with open(file_path) as file:
         words = file.read().split()
     return len(words)
+
+# TODO: Test/capture all special characters
+def count_characters(file_path : str) -> int:
+    with open(file_path) as file:
+        char_count = len(file.read())
+    newline_count = num_of_lines(file_path)
+    return char_count + newline_count
     
 
 parser = argparse.ArgumentParser(prog='ccwc',
                                  description='Generate various statistics about a file')
-parser.add_argument('-c', '--bytes_count', type=str)
-parser.add_argument('-l', '--lines_count', type=str)
-parser.add_argument('-w', '--words_count', type=str)
+parser.add_argument('-c', '--bytes_count', action='store_true') # Change this to https://stackoverflow.com/questions/8259001/python-argparse-command-line-flags-without-arguments
+parser.add_argument('-l', '--lines_count', action='store_true')
+parser.add_argument('-w', '--words_count', action='store_true')
+parser.add_argument('-m', '--characters_count', action='store_true')
+parser.add_argument('filepath')
 
 args = parser.parse_args()
 
-if args.bytes_count != None:
-    file_size = filesize_bytes(args.bytes_count)
-    print(str(file_size) + ' ' + args.bytes_count)
-elif args.lines_count != None:
-    line_count = num_of_lines(args.lines_count)
-    print(str(line_count) + ' ' + args.lines_count)
-elif args.words_count != None:
-    word_count = num_of_words(args.words_count)
-    print(str(word_count) + ' ' + args.words_count)
+if args.bytes_count:
+    file_size = filesize_bytes(args.filepath)
+    print(str(file_size) + ' ' + args.filepath)
+if args.lines_count:
+    line_count = num_of_lines(args.filepath)
+    print(str(line_count) + ' ' + args.filepath)
+if args.words_count:
+     word_count = num_of_words(args.filepath)
+     print(str(word_count) + ' ' + args.filepath)
+if args.characters_count:
+     character_count = count_characters(args.filepath)
+     print(str(character_count) + ' ' + args.filepath)
