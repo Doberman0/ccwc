@@ -40,17 +40,17 @@ if nothing_flagged(args):
     file_size = filesize_bytes(args.filepath)
     line_count = num_of_lines(args.filepath)
     word_count = num_of_words(args.filepath)
-    print(str(line_count) + ' ' + str(word_count) + ' ' + str(file_size) + ' ' + args.filepath)
+    print(f"{line_count} {word_count} {file_size} {args.filepath}")
 else:
     if args.bytes_count:
         file_size = filesize_bytes(args.filepath)
-        print(str(file_size) + ' ' + args.filepath)
+        print(f"{file_size} {args.filepath}")
     if args.lines_count:
         line_count = num_of_lines(args.filepath)
-        print(str(line_count) + ' ' + args.filepath)
+        print(f"{line_count} {args.filepath}")
     if args.words_count:
         word_count = num_of_words(args.filepath)
-        print(str(word_count) + ' ' + args.filepath)
+        print(f"{word_count} {args.filepath}")
     if args.characters_count:
         character_count = count_characters(args.filepath)
-        print(str(character_count) + ' ' + args.filepath)
+        print(f"{character_count} {args.filepath}")
